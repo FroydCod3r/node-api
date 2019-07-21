@@ -10,18 +10,13 @@ const app = express();
 mongoose.connect("mongodb://localhost:27017/nodeapi", {useNewUrlParser: true});
 
 // Requires e objetos das models
-requireDir('./src/models');
+//requireDir('./src/models');
 
-const Products = mongoose.model('Products')
+//const Products = mongoose.model('Products')
 
 
-// Rotas
-app.get('/criar', (req,res) => {
-      Products.create({
-            title: 'TESTANDO TITLE',
-            description: 'TESTANDO DESCRICAO PRO TITULO TESTE',
-            url: 'http://froyd.sytes.net'
-      })
-});
+//Routes execute
+app.use('/api', require('./src/routes'));
 
+//listen
 app.listen(3301);
