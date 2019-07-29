@@ -1,13 +1,8 @@
 const mongoose = require('mongoose')
-const requireDir = require('require-dir')
 const bcrypt = require('bcryptjs')
 
-// Chamando todos os models
-requireDir('../../src/models')
-
-const Products = mongoose.model('Products')
+const User = mongoose.model('User')
 module.exports = {
-
       async login(req, res) {
         const { email, password } = req.body    
         const user = await User.findOne({ email }).select('+password') //campos definidos como select nao exibem exceto se voce especificar com .select('campo')
@@ -19,10 +14,25 @@ module.exports = {
             return res.status(400).send({'error': 'Invalid Password'})
 
         res.send({ user })
+           
+      }, 
 
+      async novoUsuario(req, res) {
+        const { email } = req.body    
+        try{
+            if (await User.findOne({ email }))
+                res.status(400).send({'error': 'Usuário já esta cadastrado'})
+        
+            const user = await User.create(req.body)
+            return res.send({user})
+        }catch(err){
+            return res.status(400).send({'erro': 'Registration failed'})
+        }
 
            
-      } 
+      }
+      
+      
 
 };
 
