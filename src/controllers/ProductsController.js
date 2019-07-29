@@ -5,7 +5,6 @@ const requireDir = require('require-dir');
 requireDir('../../src/models');
 
 const Products = mongoose.model('Products');
-console.log('dale')
 module.exports = {
 
       async index(req, res) {
@@ -47,7 +46,6 @@ module.exports = {
 
       async destroy(req, res) {
             await Products.findByIdAndDelete(req.params.id);
-
             return res.send('D E L E T A D O')
       }
 

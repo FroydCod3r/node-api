@@ -8,11 +8,13 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+
+
 // Iniciando DB
 mongoose.connect("mongodb://localhost:27017/nodeapi", {useNewUrlParser: true});
 
 //Routes execute
-app.use('/api', require('./src/routes'));
+app.use('', require('./src/routes/routes'));
 
 
 //listen
