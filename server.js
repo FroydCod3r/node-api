@@ -14,7 +14,8 @@ app.use(cors())
 mongoose.connect("mongodb://localhost:27017/nodeapi", {useNewUrlParser: true});
 
 //Routes execute
-app.use('', require('./src/routes/routes'));
+app.use('', require('./src/routes/routesProducts'));
+app.use('', require('./src/routes/routesAuth'));
 
 
 //listen

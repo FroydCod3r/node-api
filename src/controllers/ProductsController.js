@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
 
-// Chamando todos os models
-requireDir('../../src/models');
+
+// Chamando model
+require('../models/Product')
 
 const Products = mongoose.model('Products');
 module.exports = {
