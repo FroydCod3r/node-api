@@ -5,7 +5,7 @@ const requireDir = require('require-dir');
 requireDir('../../src/models');
 
 const Products = mongoose.model('Products');
-
+console.log('dale')
 module.exports = {
 
       async index(req, res) {
