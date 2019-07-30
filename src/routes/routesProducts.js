@@ -1,15 +1,18 @@
 const express = require('express')
 const productRoutes = express.Router()
 
+//middlewareauth
+const middlewareauth = require('../middlewares/auth')
+
 // Chamando todos os controllers
 const ProductController = require('../controllers/ProductsController')
 
 // Rotas
-productRoutes.get('/products', ProductController.index)
-productRoutes.post('/create', ProductController.store)
-productRoutes.post('/products/:id', ProductController.detail)
-productRoutes.put('/products/:id', ProductController.update)
-productRoutes.delete('/products/:id', ProductController.destroy)
+productRoutes.get('/list', middlewareauth, ProductController.index)
+productRoutes.post('/create', middlewareauth, ProductController.store)
+productRoutes.post('/detail/:id', middlewareauth, ProductController.detail)
+productRoutes.put('/change/:id', middlewareauth, ProductController.update)
+productRoutes.delete('/remove/:id', middlewareauth, ProductController.destroy)
 
 
 
