@@ -11,7 +11,7 @@ const User = mongoose.model('User')
 
 function generateToken(params = {}){
     return jwt.sign(params, env.secret, {
-        expiresIn: 8000
+        expiresIn: 8000000
     })
 }
 

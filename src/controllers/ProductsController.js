@@ -11,7 +11,7 @@ module.exports = {
       async index(req, res) {
             //const products = await Products.find();
             const { page = 1 } = req.query;
-            const products = await Products.paginate( { }, { page: page, limit: 5 } );
+            const products = await Products.find();
             try {
                   return res.json(products);
             } catch (error) {
