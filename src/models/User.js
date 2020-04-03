@@ -41,4 +41,4 @@ UserSchema.pre('update', async function(next){
       this.password = hash;
 })
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

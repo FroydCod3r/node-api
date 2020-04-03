@@ -19,4 +19,4 @@ const VendasSchema = new mongoose.Schema({
       }
 });
 //ProductSchema.plugin(mongoosePaginate)
-mongoose.model('Venda', VendasSchema);
+module.exports  = mongoose.model('Venda', VendasSchema);

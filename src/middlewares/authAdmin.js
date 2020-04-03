@@ -6,85 +6,34 @@ module.exports = (req, res, next) => {
 
      if (! authHeader )
      return res.status(401).send({
-        session: {
-            logged: false,
-            id: null,
-            nome: null,
-            email: null,
-            id: null,
-            tipo: null,
-            details: null,
-            token: null
-        }
-    })
+        message: 'mal formatado'
+     })
 
      const parts = authHeader.split(' ')
 
      if(! parts.length ==  2)
      return res.status(401).send({
-        session: {
-            logged: false,
-            id: null,
-            nome: null,
-            email: null,
-            id: null,
-            tipo: null,
-            details: null,
-            token: null
-        }
+        message: 'mal formatado'
     })
 
      const [ scheme, token ] = parts
 
      if (!/^Bearer$/i.test(scheme))
      return res.status(401).send({
-        session: {
-            logged: false,
-            id: null,
-            nome: null,
-            email: null,
-            id: null,
-            tipo: null,
-            details: err,
-            token: null
-        }
+        message: 'mal formatado'
      })
 
     jwt.verify(token, env.secret, ( err, decoded ) => {
         if (err) return res.status(401).send({
-            session: {
-                logged: false,
-                id: null,
-                nome: null,
-                email: null,
-                id: null,
-                tipo: null,
-                details: err,
-                token: null
-            }
+            message: 'session expirada'
         })
 
         if(decoded.tipo != 'admin') return res.status(401).send({
-            session: {
-                logged: true,
-                id: decoded.id,
-                nome: decoded.nome,
-                email: decoded.email,
-                tipo: decoded.tipo,
-                details: {
-                    name: 'PrivError',
-                    message: 'Sem privilegios para fazer essa acao',
-                },
-                token: token
-            }
+            message: 'sem privilegios'
         })
-        req.session = {
-            logged: true,
-            id: decoded.id,
-            email: decoded.email,
-            nome: decoded.nome,
-            tipo: decoded.tipo,
-            details: null,
+
+
+        req.token = {
             token: token
         }
         return next()

@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const env = require('../config/env')
 // Chamando model
-require('../models/User')
-const User = mongoose.model('User')
+const User = require('../models/User')
 
 
 function generateToken(params = {}){
@@ -21,24 +19,17 @@ module.exports = {
         const user = await User.findOne({ email }).select('+password') //campos definidos como select nao exibem exceto se voce especificar com .select('campo')
         console.log(user)
         if (!user){
-            return res.status(400).send({
-                'dados': null, 
+            return res.status(400).send({   
                 'message': 'Invalid User or Password',
-                'session': null
             })
         }
             user.password = undefined //nao exibe a senha
 
-        res.send({
-            message: 'Sucess Login!',
-            session: {
-                logged: true,
+        res.send({  
                 id: user.id,
                 email: user.email,
                 tipo: user.tipo,
-                details: null,
                 token: generateToken({ id:user.id, nome:user.nome, email: user.email, tipo: user.tipo })
-            }
          })
            
       },
@@ -47,17 +38,11 @@ module.exports = {
       async list(req, res) {
         try {
         const users = await User.find()
-        res.json({ 
-            'dados': users,
-            'session': req.session,
-            'message': 'sucess'
-         })
+        res.json(
+            users
+         )
         } catch (err){
-            return res.status(400).send({
-                'dados': null, 
-                'message': 'Nao foi possivel listar usuarios',
-                'session': req.session
-            })
+            return res.status(400).send()
         }
            
       },
@@ -85,22 +70,16 @@ module.exports = {
             try {  
                 if (await User.findOne({ email }))
                 return res.status(400).send({
-                    'dados': null, 
                     'message': 'Usuario Ja existe!',
-                    'session': req.session
                 })
                 const registerDetails = await User.create(req.body)
                 registerDetails.password = undefined //nao exibe a senha
                 return res.json({
-                    'dados': registerDetails,
-                    'session': req.session,
                     'message': 'Usuario criado com sucesso'
                 })
             }catch(err) {
-                return res.status(400).send({
-                    'dados': null, 
+                return res.status(400).send({                            
                     'message': 'Nao foi possivel registrar seu usuario',
-                    'session': req.session
                 })
             }
     },

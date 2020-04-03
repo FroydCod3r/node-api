@@ -30,5 +30,7 @@ const VendasSchema = new mongoose.Schema({
             default: Date.now,
     }
 });
+
+
 //ProductSchema.plugin(mongoosePaginate)
-mongoose.model('Passage', VendasSchema);
+module.exports = mongoose.model('Passage', VendasSchema);

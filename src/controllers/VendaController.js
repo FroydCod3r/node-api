@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
-const requireDir = require('require-dir');
-
-
 // Chamando model
-require('../models/Venda')
-
-const Venda = mongoose.model('Venda');
+const Venda = require('../models/Venda')
 module.exports = {
 
       async list(req, res) {

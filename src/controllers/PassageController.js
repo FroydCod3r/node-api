@@ -3,10 +3,9 @@ const requireDir = require('require-dir');
 
 
 // Chamando model
-require('../models/Venda')
 
-const Passage = mongoose.model('Passage');
-module.exports = {
+
+const Passage = require('../models/Venda')
 
       async list(req, res) {
             const passage = await Passage.find();
