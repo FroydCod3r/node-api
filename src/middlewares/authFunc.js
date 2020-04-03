@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const env = require('../config/env')
+const envConfig = require('../config/env')
 module.exports = (req, res, next) => {
 
     const authHeader = req.headers.authorization
@@ -49,7 +49,7 @@ module.exports = (req, res, next) => {
         }
      })
 
-    jwt.verify(token, env.secret, ( err, decoded ) => {
+    jwt.verify(token, envConfig.secret , ( err, decoded ) => {
         if (err) return res.status(401).send({
             session: {
                 logged: false,

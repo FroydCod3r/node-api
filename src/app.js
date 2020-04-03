@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const envConfig = require('./config/env')
+const { errors } = require('celebrate')
 // const requireDir = require('require-dir');
 const cors = require('cors')
 // Iniciando o App
@@ -7,10 +9,11 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 // Iniciando DB
-mongoose.connect('mongodb://localhost:27017/nodeapi', { useNewUrlParser: true })
+mongoose.connect(envConfig.databaseURL, { useNewUrlParser: true })
 // Routes execute
-app.use('/', require('./src/routes'))
-// listen
-app.listen(3301, function () {
-    console.log('Ready')
-  })
+app.use('/', require('../src/routes'))
+
+
+app.use(errors())
+
+module.exports = app
