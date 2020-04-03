@@ -3,17 +3,18 @@ const requireDir = require('require-dir');
 
 
 // Chamando model
-require('../models/Product')
+require('../models/Venda')
 
-const Products = mongoose.model('Products');
+const Venda = mongoose.model('Venda');
 module.exports = {
 
-      async index(req, res) {
+      async list(req, res) {
+
             //const products = await Products.find();
             const { page = 1 } = req.query;
-            const products = await Products.find();
+            const venda = await Venda.find();
             try {
-                  return res.json(products);
+                  return res.json(vendas);
             } catch (error) {
                   console.log(error.message)
             }
@@ -21,9 +22,9 @@ module.exports = {
       },
 
       async store(req, res) {
-            const createProducts = await Products.create(req.body)
+            const createVenda = await Venda.create(req.body)
             try {
-                  return res.json(createProducts)       
+                  return res.json(createVenda)       
             } catch (error) {
                   console.log(error.message)
             }
@@ -31,14 +32,13 @@ module.exports = {
       },
 
       async detail(req, res) {
-            const detalhes_product = await Products.findById(req.params.id)
+            const detalhes_venda= await Venda.findById(req.params.id)
             try {
-                  return res.json(detalhes_product)
+                  return res.json(detalhes_venda)
             } catch (error) { 
                   console.log(error.message)
             }
       },
-
       async update(req, res) {
             const products = await Products.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
@@ -46,7 +46,7 @@ module.exports = {
       },
 
       async destroy(req, res) {
-            await Products.findByIdAndDelete(req.params.id);
+            await Vendas.findByIdAndDelete(req.params.id);
             return res.send('D E L E T A D O')
       }
 

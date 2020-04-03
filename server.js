@@ -9,6 +9,8 @@ app.use(cors())
 // Iniciando DB
 mongoose.connect('mongodb://localhost:27017/nodeapi', { useNewUrlParser: true })
 // Routes execute
-app.use('/', require('./src/routes/routes'))
+app.use('/', require('./src/routes'))
 // listen
-app.listen(3301)
+app.listen(3301, function () {
+    console.log('Ready')
+  })
